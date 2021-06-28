@@ -6,7 +6,9 @@
  * @flow strict-local
  */
 
-import React from 'react';
+import React,{useRef} from 'react';
+import Toolbar from './components/Toolbar';
+import Song from './components/Song';
 import type {Node} from 'react';
 import {
   SafeAreaView,
@@ -15,7 +17,7 @@ import {
   StyleSheet,
   Text,
   useColorScheme,
-  View,
+  View
 } from 'react-native';
 
 import {
@@ -59,9 +61,27 @@ const App: () => Node = () => {
     backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
   };
 
+  const scrollViewRef = useRef();
+
   return (
-      <View>
-          <Text>Hello</Text>
+      <View style={{paddingBottom:60}}>
+          <Toolbar />
+          <ScrollView
+                ref={scrollViewRef}
+              >
+                <View style={styles.songs}>
+                    <Song />
+                </View>
+                <View style={styles.songs}>
+                    <Song />
+                </View>
+                <View style={styles.songs}>
+                    <Song />
+                </View>
+
+                {/* <Song style={styles.songs}/> */}
+            </ScrollView>
+
       </View>
   );
 };
@@ -83,6 +103,12 @@ const styles = StyleSheet.create({
   highlight: {
     fontWeight: '700',
   },
+  songsWrapper:{
+      margin:10,
+  },
+  songs:{
+      marginTop:10
+    }
 });
 
 export default App;
